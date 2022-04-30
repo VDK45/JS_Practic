@@ -27,7 +27,7 @@ window.addEventListener('click', function (event) {
 
         // Проверяем товар есть в корзине?
         const itemInCart = cartWrapper.querySelector(`[data-id="${productInfo.id}"]`);
-        console.log(itemInCart)
+        // console.log(itemInCart)
         
         // если есть в корзине плюсуем их количество
         if (itemInCart) {
@@ -71,13 +71,21 @@ window.addEventListener('click', function (event) {
 
         // Отобразить товар в корзине
         cartWrapper.insertAdjacentHTML('beforeend', cartItemHTML)
-
+        
         }
+        // Сбрасывать счетчик каждого товара на 1
+        card.querySelector('[data-counter]').innerText = '1';
+
+        // Скрыть надпись Корзина пуста
+        toggleCartStatus();
+
+        // Пересчет общей стоимости товаров в корзине
+        calcCartPriceAndDelivery();
     }   
 });
 
 
-// Клики по кнопкам - и +
+// Клики по кнопкам - и + потом менять значение количества товара
 window.addEventListener('click', function (event) {
     // console.log('Click Window');   
     // console.log(event.target);      // Цель клика
@@ -90,12 +98,13 @@ window.addEventListener('click', function (event) {
         // console.log(counter);
     }
     
-
+    // проверяем на клик +
     if (event.target.dataset.action === 'plus') {
         // console.log('Click +');
         counter.innerText = ++counter.innerText;
     };
 
+    // проверяем на клик -
     if (event.target.dataset.action === 'minus') {
 
         if (parseInt(counter.innerText) > 1) {  // Парсить число
@@ -103,12 +112,27 @@ window.addEventListener('click', function (event) {
         
         // Удаление товара из корзины
         } else if (event.target.closest('.cart-wrapper') && parseInt(counter.innerText) === 1) { 
+            console.log('In cart')
+
             // Находить родителя клика
             event.target.closest('.cart-item').remove();
+            
+            // Скрыть надпись Корзина пуста
+            toggleCartStatus();
 
+            // Пересчет общей стоимости товаров в корзине
+            calcCartPriceAndDelivery();
         }
+
+        
     };
 
+    // Проверяем что клик на + и - в корзине // Artribute = 'data-action' && родитель = 'cart-wrapper'
+    if (event.target.hasAttribute('data-action') && event.target.closest('.cart-wrapper')) {    
+
+        // Пересчет общей стоимости товаров в корзине
+        calcCartPriceAndDelivery();
+    }
     
 });
 

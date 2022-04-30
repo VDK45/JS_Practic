@@ -194,14 +194,20 @@
 
 						<!-- Стоимость заказа -->
 						<div class="cart-total">
-							<p><span class="h5">Доставка:</span> <span class="delivery-cost free">бесплатно</span> </p>
-							<p><span class="h5">Итого:</span> <span class="total-price">330</span> <span class="rouble">₽</span></p>
+							<p data-cart-delivery class="none">
+								<span class="h5">Доставка:</span> 
+								<span class="delivery-cost free">бесплатно</span> <br>
+								<span class="small">Бесплато при заказе от 600 р </span>
+							</p>
+							<p><span class="h5">Итого:</span> 
+								<span class="total-price">250</span> 
+								<span class="rouble">₽</span></p>
 						</div>
 						<!-- // Стоимость заказа -->
 
 					</div>
 
-					<!-- Оформить заказ -->
+					<!-- Оформить заказ по умолчанию card-body border-top none -->
 					<div id="order-form" class="card-body border-top">
 						<h5 class="card-title">Оформить заказ</h4>
 						<form>
@@ -222,6 +228,7 @@
 	</div>
 
 	<!-- Подключаем скрипты -->
+	<script src="./js/calcCartPrice.js"></script>
 	<script src="./js/toggleCartStatus.js"></script>
 	<script src="./js/cart-01.js"></script>
 </body>
